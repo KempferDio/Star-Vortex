@@ -9,6 +9,7 @@
       "command": "g++",
       "args": [
         "-I include",
+        "-L lib",
         "-DDEBUG",
         "-g3",
         "-Wall",
