@@ -9,14 +9,13 @@
       "command": "g++",
       "args": [
         "-I include",
+        "-L lib",
         "-DDEBUG",
         "-g3",
         "-Wall",
-        "-o star_vortex.exe",
+        "-o debug/star_vortex.exe",
         "main.cpp src/Engine/Engine.cpp",
-        "-o star_vortex.exe",
-        "-lopengl32 -lglfw3 -lgdi32",
-        "-L lib"
+        "-lopengl32 -lglfw3 -lgdi32"
       ],
       "group": {
         "kind": "build",
