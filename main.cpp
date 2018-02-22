@@ -2,7 +2,7 @@
 #include <Core/Engine/Engine.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <Core/Engine/Logger.h>
+#include <Core/Common/Shader.h>
 
 int main()
 {
@@ -15,7 +15,8 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow *window = glfwCreateWindow(640, 480, "Title", NULL, NULL);
-    system("PAUSE");
+    Core::Shader("../res/shaders/vertex.vs", "../res/shaders/fragment.fs");
+
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

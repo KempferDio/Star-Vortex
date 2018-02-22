@@ -3,18 +3,20 @@
 
 #include <iostream>
 #include <fstream>
+#include <ctime>
 /*
-    Base logger
+    Logger class
+    Creates 'log.txt' and write message into it
 */
 
 namespace Core
 {
 class Logger
 {
-  public:
-    static int Log(const char *msg);
+public:
+  static int Log(const char *msg, const char *module);
 
-  private:
+private:
 };
 }
 

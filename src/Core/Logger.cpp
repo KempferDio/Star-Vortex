@@ -2,7 +2,7 @@
 
 using namespace Core;
 
-int Logger::Log(const char *msg)
+int Logger::Log(const char *msg, const char *module)
 {
     std::ofstream logFile;
 
@@ -12,8 +12,12 @@ int Logger::Log(const char *msg)
         printf("ERROR::LOG_FILE_CAN_NOT_OPEN/CREATE");
         return 1;
     }
-    logFile << msg;
+    time_t now = time(0);
+    char *dt = ctime(&now);
+    logFile << "===============================================\n";
+    logFile << dt << "Message - " << msg << "\n"
+            << "Module - " << module << "\n";
+    logFile << "===============================================\n";
     logFile.close();
-
     return 0;
 }
