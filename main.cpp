@@ -14,8 +14,6 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    Core::Logger::Log("Hello");
-
     GLFWwindow *window = glfwCreateWindow(640, 480, "Title", NULL, NULL);
     system("PAUSE");
     glfwDestroyWindow(window);
