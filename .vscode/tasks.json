@@ -1,0 +1,27 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run debug build",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-I include",
+        "-DDEBUG",
+        "-g3",
+        "-Wall",
+        "-o star_vortex.exe",
+        "main.cpp src/Engine/Engine.cpp",
+        "-o star_vortex.exe",
+        "-lopengl32 -lglfw3 -lgdi32",
+        "-L lib"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
