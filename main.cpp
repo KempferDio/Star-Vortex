@@ -17,6 +17,7 @@ int main()
     GLFWwindow *window = glfwCreateWindow(640, 480, "Title", NULL, NULL);
     Core::Shader("../res/shaders/vertex.vs", "../res/shaders/fragment.fs");
 
+    system("PAUSE");
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

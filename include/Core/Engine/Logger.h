@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <ctime>
 /*
     Logger class
@@ -14,7 +15,7 @@ namespace Core
 class Logger
 {
 public:
-  static int Log(const char *msg, const char *module);
+  static int Log(const std::string &msg, const char *module);
 
 private:
 };

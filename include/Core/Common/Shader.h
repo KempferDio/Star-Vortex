@@ -5,9 +5,7 @@
 
 #include <Core/Engine/Logger.h>
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
+#include <stdio.h>
 
 #define SHADER_BUFFER_SIZE 512
 
@@ -21,7 +19,8 @@ public:
 
 private:
   GLuint Id;
-  char *loadShaderFromFile(const char *path);
+  void checkCompileErrors(GLuint shader);
+  void checkLinkErrors();
 };
 }
 

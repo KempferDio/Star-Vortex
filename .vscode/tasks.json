@@ -15,8 +15,7 @@
         "-Wall",
         "-o debug/star_vortex.exe",
         "main.cpp src/Core/*.cpp",
-        "-lopengl32 -lglfw3 -lgdi32",
-        "-L lib"
+        "-lopengl32 -lglfw3 -lgdi32 -lglu32 -lglew32"
       ],
       "group": {
         "kind": "build",

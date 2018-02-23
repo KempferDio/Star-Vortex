@@ -2,7 +2,7 @@
 
 using namespace Core;
 
-int Logger::Log(const char *msg, const char *module)
+int Logger::Log(const std::string &msg, const char *module)
 {
     std::ofstream logFile;
 
