@@ -18,7 +18,10 @@ public:
   Shader(const char *vertexPath, const char *fragmentPath);
   void Use();
 
-  void setVec3(const char *name, glm::vec3) const;
+  void setBool(const char *name, bool value) const;
+  void setInt(const char *name, int value) const;
+  void setFloat(const char *name, float value) const;
+  void setVec3(const char *name, glm::vec3 value) const;
   void setVec3(const char *name, float value1, float value2, float value3) const;
 
 private:

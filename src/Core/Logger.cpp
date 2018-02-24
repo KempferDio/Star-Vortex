@@ -2,6 +2,8 @@
 
 using namespace Core;
 
+bool Core::Logger::isLogFileCreated = false;
+
 int Logger::Log(const std::string &msg, const char *module)
 {
     std::ofstream logFile;

@@ -93,10 +93,27 @@ std::string Shader::loadShaderFromFile(const char *path)
     return shader;
 }
 
-void Shader::setVec3(const char *name, glm::vec3) const
+void Shader::setBool(const char *name, bool value) const
 {
+    glUniform1i(glGetUniformLocation(Id, name), (int)value);
+}
+
+void Shader::setInt(const char *name, int value) const
+{
+    glUniform1i(glGetUniformLocation(Id, name), value);
+}
+
+void Shader::setFloat(const char *name, float value) const
+{
+    glUniform1f(glGetUniformLocation(Id, name), value);
+}
+
+void Shader::setVec3(const char *name, glm::vec3 value) const
+{
+    glUniform3f(glGetUniformLocation(Id, name), value.x, value.y, value.z);
 }
 
 void Shader::setVec3(const char *name, float value1, float value2, float value3) const
 {
+    glUniform3f(glGetUniformLocation(Id, name), value1, value2, value3);
 }

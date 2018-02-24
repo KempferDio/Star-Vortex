@@ -3,8 +3,6 @@
 #include <Core/Common/Shader.h>
 #include <Core/Engine/Logger.h>
 
-bool Core::Logger::isLogFileCreated = false;
-
 int main()
 {
     if (!glfwInit())
@@ -17,15 +15,26 @@ int main()
 
     GLFWwindow *window = glfwCreateWindow(640, 480, "Title", NULL, NULL);
     glfwMakeContextCurrent(window);
+
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         Core::Logger::Log("Failed to initialize GLAD", "main");
         return -1;
     }
 
+    //Shader test
     Core::Shader("../res/shaders/vertex.vs", "../res/shaders/fragment.fs");
+    Core::Logger::Log("Test", "main");
 
-    system("PAUSE");
+    while (!glfwWindowShouldClose(window))
+    {
+        glClearColor(0.5f, 0.3f, 0.6f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
