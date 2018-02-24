@@ -33,6 +33,15 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     glDeleteShader(fragment);
 }
 
+void Shader::Use()
+{
+    glUseProgram(Id);
+}
+
+void setVec3(const char *name, glm::vec3)
+{
+}
+
 void Shader::checkCompileErrors(GLuint shader, const char *type)
 {
     int success;
@@ -59,11 +68,6 @@ void Shader::checkLinkErrors()
     }
 }
 
-void Shader::Use()
-{
-    glUseProgram(Id);
-}
-
 std::string Shader::loadShaderFromFile(const char *path)
 {
     std::string shader;
@@ -87,4 +91,12 @@ std::string Shader::loadShaderFromFile(const char *path)
     }
 
     return shader;
+}
+
+void Shader::setVec3(const char *name, glm::vec3) const
+{
+}
+
+void Shader::setVec3(const char *name, float value1, float value2, float value3) const
+{
 }
