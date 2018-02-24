@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include <Core/Engine/Logger.h>
 #include <iostream>
@@ -19,8 +19,9 @@ public:
 
 private:
   GLuint Id;
-  void checkCompileErrors(GLuint shader);
+  void checkCompileErrors(GLuint shader, const char *type);
   void checkLinkErrors();
+  std::string loadShaderFromFile(const char *path);
 };
 }
 

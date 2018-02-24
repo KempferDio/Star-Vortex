@@ -5,8 +5,17 @@ using namespace Core;
 int Logger::Log(const std::string &msg, const char *module)
 {
     std::ofstream logFile;
+    //I'm tired delete log file every time
+    if (isLogFileCreated == false)
+    {
+        logFile.open("log.txt", std::ofstream::trunc);
+        isLogFileCreated = true;
+    }
+    else
+    {
+        logFile.open("log.txt", std::ofstream::app);
+    }
 
-    logFile.open("log.txt", std::ofstream::app);
     if (!logFile.is_open())
     {
         printf("ERROR::LOG_FILE_CAN_NOT_OPEN/CREATE");

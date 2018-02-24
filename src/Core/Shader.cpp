@@ -5,37 +5,8 @@ using namespace Core;
 Shader::Shader(const char *vertexPath, const char *fragmentPath)
 {
     //Loading shaders from files
-    std::string vertexCode;
-    std::string fragmentCode;
-
-    std::ifstream vertexFile;
-    std::ifstream fragmentFile;
-
-    vertexFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    fragmentFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
-    try
-    {
-        vertexFile.open(vertexPath);
-        fragmentFile.open(fragmentPath);
-
-        std::stringstream vertexStream;
-        std::stringstream fragmentStream;
-
-        vertexStream << vertexFile.rdbuf();
-        fragmentStream << fragmentFile.rdbuf();
-
-        vertexCode = vertexStream.str();
-        fragmentCode = fragmentStream.str();
-
-        fragmentFile.close();
-        vertexFile.close();
-    }
-    catch (std::ifstream::failure e)
-    {
-        Logger::Log("Can't read shader file",
-                    "Shader::Shader");
-    }
+    std::string vertexCode = loadShaderFromFile(vertexPath);
+    std::string fragmentCode = loadShaderFromFile(fragmentPath);
 
     const char *vertexShader = vertexCode.c_str();
     const char *fragmentShader = fragmentCode.c_str();
@@ -45,12 +16,12 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vertexShader, NULL);
     glCompileShader(vertex);
-    checkCompileErrors(vertex);
+    checkCompileErrors(vertex, "VERTEX");
     //Create fragment shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fragmentShader, NULL);
     glCompileShader(fragment);
-    checkCompileErrors(fragment);
+    checkCompileErrors(fragment, "FRAGMENT");
     //Create shader program
     Id = glCreateProgram();
     glAttachShader(Id, vertex);
@@ -62,7 +33,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     glDeleteShader(fragment);
 }
 
-void Shader::checkCompileErrors(GLuint shader)
+void Shader::checkCompileErrors(GLuint shader, const char *type)
 {
     int success;
     char info[512];
@@ -71,7 +42,7 @@ void Shader::checkCompileErrors(GLuint shader)
     if (!success)
     {
         glGetShaderInfoLog(shader, 512, NULL, info);
-        Logger::Log(info, "SHADER::checkCompileErrors");
+        Logger::Log(info, type);
     }
 }
 
@@ -91,4 +62,29 @@ void Shader::checkLinkErrors()
 void Shader::Use()
 {
     glUseProgram(Id);
+}
+
+std::string Shader::loadShaderFromFile(const char *path)
+{
+    std::string shader;
+    std::ifstream shaderFile;
+    shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+    try
+    {
+        shaderFile.open(path);
+        std::stringstream shaderStream;
+
+        shaderStream << shaderFile.rdbuf();
+
+        shader = shaderStream.str();
+
+        shaderFile.close();
+    }
+    catch (std::ifstream::failure e)
+    {
+        Logger::Log("Can't read file", "Shader::loadShaderFromFile");
+    }
+
+    return shader;
 }

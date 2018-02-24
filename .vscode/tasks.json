@@ -11,11 +11,11 @@
         "-I include",
         "-L lib",
         "-DDEBUG",
-        "-g3",
+        "-g",
         "-Wall",
         "-o debug/star_vortex.exe",
-        "main.cpp src/Core/*.cpp",
-        "-lopengl32 -lglfw3 -lgdi32 -lglu32 -lglew32"
+        "main.cpp src/glad.c src/Core/*.cpp",
+        "-lopengl32 -lglfw3 -lgdi32"
       ],
       "group": {
         "kind": "build",

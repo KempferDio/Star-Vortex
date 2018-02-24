@@ -16,6 +16,7 @@ class Logger
 {
 public:
   static int Log(const std::string &msg, const char *module);
+  static bool isLogFileCreated;
 
 private:
 };

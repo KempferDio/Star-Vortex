@@ -5,10 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "(gdb) Launch",
+      "name": "(gdb) Launch Debug",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/star_vortex.exe",
+      "program": "${workspaceFolder}/debug/star_vortex.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
