@@ -10,13 +10,13 @@ namespace Core
 {
 class Texture
 {
-  public:
-    Texture();
-    void Bind();
+public:
+  Texture(); //Base texture settings
+  void Bind();
 
-  private:
-    GLuint id;
-    unsigned char loadTextureFromFile(const char *path);
+private:
+  GLuint id;
+  unsigned char loadTextureFromFile(const char *path);
 };
 }
 
