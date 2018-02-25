@@ -1,6 +1,15 @@
 #ifndef RESOURCE_MANAGER_H
 #define RESOURCE_MANAGER_H
 
+#include <glad/glad.h>
+#include <map>
+#include <fstream>
+#include <sstream>
+#include <Core/Common/Shader.h>
+#include <Core/Common/Texture.h>
+#include <Core/Engine/Logger.h>
+#include <SOIL/SOIL.h>
+
 /*
     Base resource manager
 */
@@ -9,8 +18,20 @@ namespace Core
 {
 class ResourceManager
 {
-  public:
-  private:
+public:
+  static std::map<std::string, Shader> Shaders;
+  static std::map<std::string, Texture> Textures;
+  static void LoadShader(const char *vertexPath, const char *fragmentPath, std::string name);
+  static void LoadTexture(const char *path, std::string name);
+  static Shader GetShader(const char *name);
+  static Texture GetTexture(const char *name);
+  static void FreeResources();
+
+private:
+  static std::string loadShaderFile(const char *shaderPath);
+  static Texture loadTextureFromFile(const char *path);
+
+  ResourceManager();
 };
 }
 

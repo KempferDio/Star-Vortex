@@ -15,8 +15,10 @@ namespace Core
 class Shader
 {
 public:
-  Shader(const char *vertexPath, const char *fragmentPath);
+  Shader();
+  Shader(std::string vertexCode, std::string fragmentCode);
   void Use();
+  GLuint Id;
 
   void setBool(const char *name, bool value) const;
   void setInt(const char *name, int value) const;
@@ -25,10 +27,8 @@ public:
   void setVec3(const char *name, float value1, float value2, float value3) const;
 
 private:
-  GLuint Id;
   void checkCompileErrors(GLuint shader, const char *type);
   void checkLinkErrors();
-  std::string loadShaderFromFile(const char *path);
 };
 }
 

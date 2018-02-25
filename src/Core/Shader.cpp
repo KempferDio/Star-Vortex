@@ -2,12 +2,15 @@
 
 using namespace Core;
 
-Shader::Shader(const char *vertexPath, const char *fragmentPath)
+Shader::Shader()
 {
-    //Loading shaders from files
-    std::string vertexCode = loadShaderFromFile(vertexPath);
-    std::string fragmentCode = loadShaderFromFile(fragmentPath);
+    //Default ctor
+    //For map in resource manager
+}
 
+Shader::Shader(std::string vertexCode, std::string fragmentCode)
+{
+    Logger::Log(vertexCode, "Shader::Shader(string, string)");
     const char *vertexShader = vertexCode.c_str();
     const char *fragmentShader = fragmentCode.c_str();
 
@@ -66,31 +69,6 @@ void Shader::checkLinkErrors()
         glGetProgramInfoLog(Id, 512, NULL, info);
         Logger::Log(info, "SHADER::checkLinkErrors");
     }
-}
-
-std::string Shader::loadShaderFromFile(const char *path)
-{
-    std::string shader;
-    std::ifstream shaderFile;
-    shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-
-    try
-    {
-        shaderFile.open(path);
-        std::stringstream shaderStream;
-
-        shaderStream << shaderFile.rdbuf();
-
-        shader = shaderStream.str();
-
-        shaderFile.close();
-    }
-    catch (std::ifstream::failure e)
-    {
-        Logger::Log("Can't read file", "Shader::loadShaderFromFile");
-    }
-
-    return shader;
 }
 
 void Shader::setBool(const char *name, bool value) const

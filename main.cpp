@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <Core/Common/Shader.h>
+#include <Core/Engine/ResourceManager.h>
 #include <Core/Engine/Logger.h>
 
 int main()
@@ -22,9 +22,7 @@ int main()
         return -1;
     }
 
-    //Shader test
-    Core::Shader("../res/shaders/vertex.vs", "../res/shaders/fragment.fs");
-    Core::Logger::Log("Test", "main");
+    Core::ResourceManager::LoadShader("../res/shaders/vertex.vs", "../res/shaders/fragment.fs", "Test shader");
 
     while (!glfwWindowShouldClose(window))
     {
@@ -35,6 +33,7 @@ int main()
         glfwSwapBuffers(window);
     }
 
+    Core::ResourceManager::FreeResources();
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

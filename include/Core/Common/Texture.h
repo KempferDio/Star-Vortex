@@ -3,7 +3,9 @@
 #include <glad/glad.h>
 
 /*
-    Base texture
+  Base texture
+
+  TODO: Full texture settings
 */
 
 namespace Core
@@ -11,11 +13,13 @@ namespace Core
 class Texture
 {
 public:
-  Texture(); //Base texture settings
+  Texture();
   void Bind();
+  void Generate(unsigned char *image, int width, int height);
+
+  GLuint Id;
 
 private:
-  GLuint id;
   unsigned char loadTextureFromFile(const char *path);
 };
 }
