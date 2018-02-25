@@ -14,13 +14,18 @@ class Texture
 {
 public:
   Texture();
-  void Bind();
-  void Generate(unsigned char *image, int width, int height);
+
+  void Bind() const;
+  void Generate(unsigned char *image, GLuint width, GLuint height);
 
   GLuint Id;
-
-private:
-  unsigned char loadTextureFromFile(const char *path);
+  GLuint Width, Height;
+  GLuint internalFormat;
+  GLuint imageFormat;
+  GLuint wrapS;
+  GLuint wrapT;
+  GLuint filterMin;
+  GLuint filterMax;
 };
 }
 
