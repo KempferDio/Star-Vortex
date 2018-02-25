@@ -5,7 +5,6 @@
 /*
   Base texture
 
-  TODO: Full texture settings
 */
 
 namespace Core

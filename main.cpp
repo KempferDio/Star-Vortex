@@ -5,6 +5,7 @@
 
 int main()
 {
+    //TODO: Renderer
     if (!glfwInit())
     {
         return 1;
