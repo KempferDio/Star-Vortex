@@ -13,7 +13,7 @@
         "-DDEBUG",
         "-g",
         "-Wall",
-        "-odebug/star_vortex",
+        "-obin/debug/star_vortex",
         "main.cpp",
         "src/glad.c",
         "src/Core/*.cpp",

@@ -29,7 +29,7 @@ void Texture::Generate(unsigned char *image, GLuint width, GLuint height)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::Bind()
+void Texture::Bind() const
 {
     glBindTexture(GL_TEXTURE_2D, Id);
 }
