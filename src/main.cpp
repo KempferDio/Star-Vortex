@@ -30,6 +30,8 @@ int main()
         glClearColor(0.5f, 0.3f, 0.6f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        Core::ResourceManager::GetShader("Test shader").Use();
+
         glfwPollEvents();
         glfwSwapBuffers(window);
     }
