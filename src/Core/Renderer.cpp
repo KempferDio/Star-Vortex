@@ -2,8 +2,12 @@
 
 using namespace Core;
 
-void Renderer::SetupWindow(unsigned int width, unsigned int height, const char *title)
+Renderer::Renderer(unsigned int width, unsigned int height, const char *title)
 {
+    Window.Width = width;
+    Window.Height = height;
+    Window.Title = title;
+
     if (!glfwInit())
     {
         Core::Logger::Log("Failed to initialize GLFW", "Renderer::setupWindow");
@@ -12,13 +16,19 @@ void Renderer::SetupWindow(unsigned int width, unsigned int height, const char *
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    Window = glfwCreateWindow(width, height, title, NULL, NULL);
-    glfwMakeContextCurrent(Window);
+    Window.WindowPtr = glfwCreateWindow(width, height, title, NULL, NULL);
+    glfwMakeContextCurrent(GetWindow());
+}
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        Core::Logger::Log("Failed to initialize GLAD", "Renderer::Renderer()");
-    }
+Renderer::~Renderer()
+{
+    glfwDestroyWindow(GetWindow());
+    glfwTerminate();
+}
+
+GLFWwindow *Renderer::GetWindow()
+{
+    return Window.WindowPtr;
 }
 
 //
@@ -50,7 +60,10 @@ void Renderer::Draw(Texture &texture, Shader &shader, glm::vec3 position,
 
 void Renderer::InitBaseSettings()
 {
-
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        Core::Logger::Log("Failed to initialize GLAD", "Renderer::Renderer()");
+    }
     GLuint VBO;
     GLfloat vertices[] = {
         0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
@@ -85,6 +98,6 @@ void Renderer::ClearScreen()
 void Renderer::TerminateRenderer()
 {
     Logger::Log("Renderer is dead", "~Renderer");
-    glfwDestroyWindow(Window);
+    glfwDestroyWindow(GetWindow());
     glfwTerminate();
 }

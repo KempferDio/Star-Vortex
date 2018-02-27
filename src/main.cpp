@@ -6,20 +6,21 @@
 
 int main()
 {
-    Core::Renderer::SetupWindow(800, 600, "Test");
-    Core::Renderer::InitBaseSettings();
+
+    Core::Renderer Render(800, 600, "Test");
+    Render.InitBaseSettings();
     Core::ResourceManager::LoadShader("../../res/shaders/vertex.vs", "../../res/shaders/fragment.fs", "Shader");
 
-    while (!glfwWindowShouldClose(Core::Renderer::Window))
+    while (!glfwWindowShouldClose(Render.GetWindow()))
     {
-        Core::Renderer::ClearScreen();
+        Render.ClearScreen();
         Core::ResourceManager::GetShader("Shader").Use();
 
         glfwPollEvents();
-        glfwSwapBuffers(Core::Renderer::Window);
+        glfwSwapBuffers(Render.GetWindow());
     }
 
-    Core::Renderer::TerminateRenderer();
+    Render.TerminateRenderer();
     Core::ResourceManager::FreeResources();
     return 0;
 }
