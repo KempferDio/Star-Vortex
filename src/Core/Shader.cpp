@@ -10,7 +10,7 @@ Shader::Shader()
 
 Shader::Shader(std::string vertexCode, std::string fragmentCode)
 {
-    Logger::Log(vertexCode, "Shader::Shader(string, string)");
+    //Logger::Log(vertexCode, "Shader::Shader(string, string)");
     const char *vertexShader = vertexCode.c_str();
     const char *fragmentShader = fragmentCode.c_str();
 
@@ -19,12 +19,12 @@ Shader::Shader(std::string vertexCode, std::string fragmentCode)
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vertexShader, NULL);
     glCompileShader(vertex);
-    checkCompileErrors(vertex, "VERTEX");
+    checkCompileErrors(vertex);
     //Create fragment shader
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fragmentShader, NULL);
     glCompileShader(fragment);
-    checkCompileErrors(fragment, "FRAGMENT");
+    checkCompileErrors(fragment);
     //Create shader program
     Id = glCreateProgram();
     glAttachShader(Id, vertex);
@@ -41,11 +41,7 @@ void Shader::Use()
     glUseProgram(Id);
 }
 
-void setVec3(const char *name, glm::vec3)
-{
-}
-
-void Shader::checkCompileErrors(GLuint shader, const char *type)
+void Shader::checkCompileErrors(GLuint shader)
 {
     int success;
     char info[512];
@@ -54,7 +50,7 @@ void Shader::checkCompileErrors(GLuint shader, const char *type)
     if (!success)
     {
         glGetShaderInfoLog(shader, 512, NULL, info);
-        Logger::Log(info, type);
+        Logger::Log(info, "Shader::checkCompileErrors");
     }
 }
 
@@ -86,12 +82,17 @@ void Shader::setFloat(const char *name, float value) const
     glUniform1f(glGetUniformLocation(Id, name), value);
 }
 
-void Shader::setVec3(const char *name, glm::vec3 value) const
+void Shader::setVec3f(const char *name, glm::vec3 value) const
 {
     glUniform3f(glGetUniformLocation(Id, name), value.x, value.y, value.z);
 }
 
-void Shader::setVec3(const char *name, float value1, float value2, float value3) const
+void Shader::setVec3f(const char *name, float value1, float value2, float value3) const
 {
     glUniform3f(glGetUniformLocation(Id, name), value1, value2, value3);
+}
+
+void Shader::setMatrix4(const char *name, glm::mat4 mat)
+{
+    glUniformMatrix4fv(glGetUniformLocation(Id, name), 1, GL_FALSE, glm::value_ptr(mat));
 }

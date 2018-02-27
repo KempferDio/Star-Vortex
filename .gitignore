@@ -1,5 +1,5 @@
 *.exe
 *.dll
 *.lib
-debug
-res
+*.o
+*.txt

@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Debug-build",
+      "label": "Debug build",
       "type": "shell",
       "command": "g++",
       "args": [
@@ -13,9 +13,15 @@
         "-DDEBUG",
         "-g",
         "-Wall",
+<<<<<<< HEAD
         "-obin/debug/star_vortex",
         "main.cpp",
         "src/glad.c",
+=======
+        "-o bin/debug/star_vortex",
+        "src/*.cpp",
+        "src/*.c",
+>>>>>>> develop
         "src/Core/*.cpp",
         "-lSOIL",
         "-lglfw3",
