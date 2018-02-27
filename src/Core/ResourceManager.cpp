@@ -10,10 +10,7 @@ void ResourceManager::LoadShader(const char *vertexPath, const char *fragmentPat
     std::string vertexCode = loadShaderFile(vertexPath);
     std::string fragmentCode = loadShaderFile(fragmentPath);
 
-    /*  Shader shader(vertexCode, fragmentCode);
-    Shaders[name] = shader;*/
-
-    Shaders.insert(std::map<std::string, Shader>::value_type(name, Shader(vertexPath, fragmentPath)));
+    Shaders.insert(std::map<std::string, Shader>::value_type(name, Shader(vertexCode, fragmentCode)));
 }
 
 void ResourceManager::LoadTexture(const char *path, std::string name)
@@ -33,7 +30,7 @@ Texture ResourceManager::GetTexture(const char *name)
 {
     return Textures[name];
 }
-
+//Returns string object
 std::string ResourceManager::loadShaderFile(const char *path)
 {
     std::string shaderCode;
@@ -55,7 +52,7 @@ std::string ResourceManager::loadShaderFile(const char *path)
     }
     catch (std::fstream::failure e)
     {
-        Logger::Log("Can't red shader file", "ResourceManager::loadShaderFile");
+        std::cerr << e.what() << std::endl;
     }
 
     return shaderCode;

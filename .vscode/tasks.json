@@ -15,6 +15,7 @@
         "-Wall",
         "-o bin/debug/star_vortex",
         "src/*.cpp",
+        "src/*.c",
         "src/Core/*.cpp",
         "-lSOIL",
         "-lglfw3",
