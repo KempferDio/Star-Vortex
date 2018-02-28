@@ -8,7 +8,7 @@
 #include <Core/Shader.h>
 #include <Core/Texture.h>
 #include <Core/Logger.h>
-#include <SOIL/SOIL.h>
+#include <stb/stb_image.h>
 
 /*
     Base resource manager

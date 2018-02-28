@@ -10,9 +10,6 @@ void ResourceManager::LoadShader(const char *vertexPath, const char *fragmentPat
     std::string vertexCode = loadShaderFile(vertexPath);
     std::string fragmentCode = loadShaderFile(fragmentPath);
 
-    Logger::Log(vertexCode, "LoadShader");
-    Logger::Log(fragmentCode, "LoadShader");
-
     Shaders.insert(std::map<std::string, Shader>::value_type(name, Shader(vertexCode, fragmentCode)));
 }
 
@@ -67,12 +64,20 @@ Texture ResourceManager::loadTextureFromFile(const char *path)
 
     Texture texture;
     //Alpha format here
-    int width, height;
-    unsigned char *image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGB);
-    //Generate texture
-    texture.Generate(image, width, height);
+    int width, height, nrChannels;
+    unsigned char *image = stbi_load(path, &width, &height, &nrChannels, 0);
+    if (image)
+    {
+        //Generate texture
+        texture.Generate(image, width, height);
+        Logger::Log("Texture was loaded and created", "loadTextureFromFile");
+    }
+    else
+    {
+        Logger::Log("Texture wasn't load", "loadTextureFromFile");
+    }
     //Free data
-    SOIL_free_image_data(image);
+    stbi_image_free(image);
     return texture;
 }
 
