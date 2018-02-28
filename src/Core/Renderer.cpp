@@ -1,4 +1,4 @@
-#include <Core/Engine/Renderer.h>
+#include <Core/Renderer.h>
 
 using namespace Core;
 
@@ -32,14 +32,14 @@ GLFWwindow *Renderer::GetWindow()
 }
 
 //
-void Renderer::Draw(Texture &texture, Shader &shader, glm::vec3 position,
+void Renderer::Draw(Texture &texture, Shader &shader, glm::vec2 position,
                     glm::vec2 size,
                     GLfloat rotate, glm::vec3 color)
 {
     shader.Use();
     glm::mat4 model;
 
-    model = glm::translate(model, glm::vec3(position));
+    model = glm::translate(model, glm::vec3(position, 0.0f));
 
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -66,13 +66,11 @@ void Renderer::InitBaseSettings()
     }
     GLuint VBO;
     GLfloat vertices[] = {
-        0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-
-        0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-        1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
+        // Position // Texture
+        1.0f, -1.0f, 1.0f, -1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f, -1.0f, 1.0f,
+        -1.0f, -1.0f, -1.0f, -1.0f};
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -82,9 +80,7 @@ void Renderer::InitBaseSettings()
 
     glBindVertexArray(VAO);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 5, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 5, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid *)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }

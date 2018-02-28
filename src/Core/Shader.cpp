@@ -1,4 +1,4 @@
-#include <Core/Common/Shader.h>
+#include <Core/Shader.h>
 
 using namespace Core;
 
@@ -92,7 +92,7 @@ void Shader::setVec3f(const char *name, float value1, float value2, float value3
     glUniform3f(glGetUniformLocation(Id, name), value1, value2, value3);
 }
 
-void Shader::setMatrix4(const char *name, glm::mat4 mat)
+void Shader::setMatrix4(const char *name, glm::mat4 mat) const
 {
     glUniformMatrix4fv(glGetUniformLocation(Id, name), 1, GL_FALSE, glm::value_ptr(mat));
 }

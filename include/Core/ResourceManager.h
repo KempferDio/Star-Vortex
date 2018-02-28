@@ -5,9 +5,9 @@
 #include <map>
 #include <fstream>
 #include <sstream>
-#include <Core/Common/Shader.h>
-#include <Core/Common/Texture.h>
-#include <Core/Engine/Logger.h>
+#include <Core/Shader.h>
+#include <Core/Texture.h>
+#include <Core/Logger.h>
 #include <SOIL/SOIL.h>
 
 /*
@@ -23,8 +23,8 @@ public:
   static std::map<std::string, Texture> Textures;
   static void LoadShader(const char *vertexPath, const char *fragmentPath, std::string name);
   static void LoadTexture(const char *path, std::string name);
-  static Shader GetShader(const char *name);
-  static Texture GetTexture(const char *name);
+  static Shader &GetShader(const char *name);
+  static Texture &GetTexture(const char *name);
   static void FreeResources();
 
 private:

@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <Core/Engine/Logger.h>
+#include <Core/Logger.h>
 #include <iostream>
 
 #define SHADER_BUFFER_SIZE 512
@@ -25,7 +25,7 @@ public:
   void setFloat(const char *name, float value) const;
   void setVec3f(const char *name, glm::vec3 value) const;
   void setVec3f(const char *name, float value1, float value2, float value3) const;
-  void setMatrix4(const char *name, glm::mat4 mat);
+  void setMatrix4(const char *name, glm::mat4 mat) const;
 
 private:
   void checkCompileErrors(GLuint shader);

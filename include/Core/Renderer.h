@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <Core/Common/Texture.h>
-#include <Core/Common/Shader.h>
-#include <Core/Engine/GameWindow.h>
+#include <Core/Texture.h>
+#include <Core/Shader.h>
+#include <Core/GameWindow.h>
 
 namespace Core
 {
@@ -18,7 +18,7 @@ public:
   Renderer(unsigned int width, unsigned int height, const char *title);
   ~Renderer();
   void ClearScreen();
-  void Draw(Texture &texture, Shader &shader, glm::vec3 position,
+  void Draw(Texture &texture, Shader &shader, glm::vec2 position,
             glm::vec2 size, GLfloat rotate, glm::vec3 color);
   void InitBaseSettings();
   void TerminateRenderer();
