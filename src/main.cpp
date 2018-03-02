@@ -9,22 +9,23 @@ int main()
 
     Core::Renderer *Render = new Core::Renderer(800, 600, "Test");
     Render->InitBaseSettings();
-    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+    glViewport(0, 0, 800, 600);
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 0.1f, 100.0f);
     Core::ResourceManager::LoadShader("../../res/shaders/vertex.vs", "../../res/shaders/fragment.fs", "Shader");
     Core::ResourceManager::GetShader("Shader").setInt("image", 0);
     Core::ResourceManager::GetShader("Shader").setMatrix4("projection", projection);
     Core::ResourceManager::LoadTexture("../../res/textures/wall.jpg", "Texture");
 
-    glm::vec2 position(0, 0);
-    glm::vec2 size(5, 5);
-    glm::vec3 color(1.0f, 0.5f, 0.5f);
-
     while (!glfwWindowShouldClose(Render->GetWindow()))
     {
         Render->ClearScreen();
 
+        glm::vec2 position(200.0f, 200.0f);
+        glm::vec2 size(300.0f, 200.0f);
+        glm::vec3 color(1.0f, 0.5f, 0.5f);
+
         Render->Draw(Core::ResourceManager::GetTexture("Texture"),
-                     Core::ResourceManager::GetShader("Shader"),
+                     "Shader",
                      position, size, 0.0f, color);
 
         glfwPollEvents();

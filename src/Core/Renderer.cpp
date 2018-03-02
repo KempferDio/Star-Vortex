@@ -12,6 +12,7 @@ Renderer::Renderer(unsigned int width, unsigned int height, const char *title)
     {
         Core::Logger::Log("Failed to initialize GLFW", "Renderer::setupWindow");
     }
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -22,6 +23,7 @@ Renderer::Renderer(unsigned int width, unsigned int height, const char *title)
 
 Renderer::~Renderer()
 {
+    glDeleteVertexArrays(1, &VAO);
     glfwDestroyWindow(GetWindow());
     glfwTerminate();
 }
@@ -32,23 +34,23 @@ GLFWwindow *Renderer::GetWindow()
 }
 
 //
-void Renderer::Draw(Texture &texture, Shader &shader, glm::vec2 position,
+void Renderer::Draw(Texture &texture, const char *shaderName, glm::vec2 position,
                     glm::vec2 size,
                     GLfloat rotate, glm::vec3 color)
 {
-    shader.Use();
+    Core::ResourceManager::GetShader(shaderName).Use();
     glm::mat4 model;
 
-    model = glm::translate(model, glm::vec3(position, 0.0f));
+    model = glm::translate(model, glm::vec3(position, -1.0f));
 
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
+    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, -1.0f));
     model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
+    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, -1.0f));
 
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
-    shader.setMatrix4("model", model);
-    shader.setVec3f("spriteColor", color);
+    Core::ResourceManager::GetShader(shaderName).setMatrix4("model", model);
+    Core::ResourceManager::GetShader(shaderName).setVec3f("spriteColor", color);
 
     glActiveTexture(GL_TEXTURE0);
     texture.Bind();
@@ -64,6 +66,7 @@ void Renderer::InitBaseSettings()
     {
         Core::Logger::Log("Failed to initialize GLAD", "Renderer::Renderer()");
     }
+
     GLuint VBO;
     GLfloat vertices[] = {
         // Position // Texture
@@ -82,7 +85,7 @@ void Renderer::InitBaseSettings()
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void *)0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void *)0);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
