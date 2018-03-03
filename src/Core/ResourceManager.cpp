@@ -9,8 +9,9 @@ void ResourceManager::LoadShader(const char *vertexPath, const char *fragmentPat
 {
     std::string vertexCode = loadShaderFile(vertexPath);
     std::string fragmentCode = loadShaderFile(fragmentPath);
+    Shader shader(vertexCode, fragmentCode);
 
-    Shaders.insert(std::map<std::string, Shader>::value_type(name, Shader(vertexCode, fragmentCode)));
+    Shaders.insert(std::map<std::string, Shader>::value_type(name, shader));
 }
 
 void ResourceManager::LoadTexture(const char *path, std::string name)
@@ -18,16 +19,15 @@ void ResourceManager::LoadTexture(const char *path, std::string name)
     /*Texture texture = loadTextureFromFile(path);
     Textures[name] = texture;*/
     Texture texture = loadTextureFromFile(path);
-
     Textures.insert(std::map<std::string, Texture>::value_type(name, texture));
 }
 
-Shader& ResourceManager::GetShader(const char *name)
+Shader &ResourceManager::GetShader(const char *name)
 {
     return Shaders.at(name);
 }
 
-Texture& ResourceManager::GetTexture(const char *name)
+Texture &ResourceManager::GetTexture(const char *name)
 {
     return Textures.at(name);
 }
@@ -59,7 +59,6 @@ std::string ResourceManager::loadShaderFile(const char *path)
     return shaderCode;
 }
 
-
 Texture ResourceManager::loadTextureFromFile(const char *path)
 {
 
@@ -71,8 +70,10 @@ Texture ResourceManager::loadTextureFromFile(const char *path)
     {
         //Generate texture
         texture.Generate(image, width, height);
+        Logger::Log("Texture was loaded and created", "loadTextureFromFile");
     }
-    else {
+    else
+    {
         Logger::Log("Texture wasn't load", "loadTextureFromFile");
     }
     //Free data

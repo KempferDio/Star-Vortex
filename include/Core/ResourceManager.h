@@ -8,7 +8,7 @@
 #include <Core/Shader.h>
 #include <Core/Texture.h>
 #include <Core/Logger.h>
-#include <stb_image.h>
+#include <stb/stb_image.h>
 
 /*
     Base resource manager
@@ -23,7 +23,7 @@ public:
   static std::map<std::string, Texture> Textures;
   static void LoadShader(const char *vertexPath, const char *fragmentPath, std::string name);
   static void LoadTexture(const char *path, std::string name);
-  static Shader& GetShader(const char *name);
+  static Shader &GetShader(const char *name);
   static Texture &GetTexture(const char *name);
   static void FreeResources();
 

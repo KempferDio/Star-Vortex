@@ -1,13 +1,44 @@
-TARGET = Star Vortex
+CC = g++
+SRC = src
+HEADER = include
+TARGET = Star-Vortex
+LIB = lib
+OBJ = obj
+DEBUG = bin/debug
+#RELEASE
 
-SRC = src/*.cpp src/Core/*.cpp
-DEBUG_FOLDER = $(CURDIR)/bin/debug
-MAIN_FOLDER = $(CURDIR)
+SOURCES = $(wildcard $(SRC)/*.cpp) \
+	 $(wildcard $(SRC)/Core/*.cpp) \
+	 $(wildcard $(SRC)/Core/*.c) \
+	 $(wildcard $(SRC)/*.c)
 
-debug_compile :
-	cd obj/debug
-	g++ -c $(SRC) -O0
+OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES)) 
+
+CFLAGS = -c -Wall
+LFLAGS = -L$(LIB) -lglfw3 -lopengl32 -lgdi32 -g -D DEBUG
+
+all: $(TARGET)
+
+
+$(TARGET): $(OBJS)
+	$(CC) $(LFLAGS) -I$(HEADER) $^ -o $(DEBUG)/$(TARGET)
+
+$(OBJ): $(OBJS)
+
+$(OBJ)/%.o: $(SRC)/%.cpp
+	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
+
+$(OBJ)/%.o: $(SRC)/%.c
+	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
+
+$(OBJ)/%.o: $(SRC)/Core/%.cpp
+	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
+
+$(OBJ)/%.o: $(SRC)/Core/%.cpp
+	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
 
 clean:
-	cd obj
-	del *.o
+	del /S *.o
+
+
+.PHONY: all clean 

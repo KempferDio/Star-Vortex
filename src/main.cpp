@@ -7,20 +7,33 @@
 int main()
 {
 
-    Core::Renderer* Render = new Core::Renderer(800, 600, "Test");
+    Core::Renderer *Render = new Core::Renderer(800, 600, "Test");
     Render->InitBaseSettings();
+    //glViewport(0, 0, 800, 600);
+
     Core::ResourceManager::LoadShader("../../res/shaders/vertex.vs", "../../res/shaders/fragment.fs", "Shader");
     Core::ResourceManager::GetShader("Shader").setInt("image", 0);
-    Core::ResourceManager::LoadTexture("../../res/texture/main.png", "Texture");
+
+    Core::ResourceManager::LoadTexture("../../res/textures/wall.jpg", "Texture");
 
     while (!glfwWindowShouldClose(Render->GetWindow()))
     {
         Render->ClearScreen();
-        Core::ResourceManager::GetShader("Shader").Use();
+        glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 0.1f, 100.0f);
+        Core::ResourceManager::GetShader("Shader").setMatrix4("projection", projection);
 
-        Render->Draw(Core::ResourceManager::GetTexture("Texture"),
-                    Core::ResourceManager::GetShader("Shader"),
-                    glm::vec3(200, 200, 0), glm::vec2(0, 0), 45.0f, glm::vec3(1.0f, 0.5f, 0.3f));
+#ifdef DEBUG
+        std::cout << "Projection" << std::endl;
+        Render->printMatrix(projection);
+#endif
+
+        glm::vec2 position(200.0f, 200.0f);
+        glm::vec2 size(500.0f, 500.0f);
+        glm::vec3 color(1.0f, 0.5f, 0.5f);
+
+        Render->Draw("Texture",
+                     "Shader",
+                     position, size, 0.0f, color);
 
         glfwPollEvents();
         glfwSwapBuffers(Render->GetWindow());
