@@ -39,18 +39,23 @@ void Renderer::Draw(const char *textureName, const char *shaderName, glm::vec2 p
                     GLfloat rotate, glm::vec3 color)
 {
     Core::ResourceManager::GetShader(shaderName).Use();
-    glm::mat4 model;
+    glm::mat4 model = glm::mat4(1.0f);
 
-    model = glm::translate(model, glm::vec3(position, -1.0f));
+    model = glm::translate(model, glm::vec3(position, 0.0f));
 
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, -1.0f));
+    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, -1.0f));
+    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
 
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
-    Core::ResourceManager::GetShader(shaderName).setMatrix4("model", model);
+#ifdef DEBUG
+    std::cout << "Model" << std::endl;
+    printMatrix(model);
+#endif
+
     Core::ResourceManager::GetShader(shaderName).setVec3f("spriteColor", color);
+    Core::ResourceManager::GetShader(shaderName).setMatrix4("model", model);
 
     glActiveTexture(GL_TEXTURE0);
     Core::ResourceManager::GetTexture(textureName).Bind();

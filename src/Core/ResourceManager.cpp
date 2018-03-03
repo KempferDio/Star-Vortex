@@ -10,7 +10,6 @@ void ResourceManager::LoadShader(const char *vertexPath, const char *fragmentPat
     std::string vertexCode = loadShaderFile(vertexPath);
     std::string fragmentCode = loadShaderFile(fragmentPath);
     Shader shader(vertexCode, fragmentCode);
-    std::cout << shader.Id << std::endl;
 
     Shaders.insert(std::map<std::string, Shader>::value_type(name, shader));
 }

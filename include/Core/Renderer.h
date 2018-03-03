@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -25,6 +26,22 @@ public:
   void TerminateRenderer();
   GLFWwindow *GetWindow();
   GameWindow Window;
+
+  //Test function
+  void printMatrix(glm::mat4 mat)
+  {
+    std::cout << "=====================================" << std::endl;
+    for (int i = 0; i < 4; i++)
+    {
+      for (int j = 0; j < 4; j++)
+      {
+        std::cout << mat[i][j] << " ";
+      }
+
+      std::cout << "\n";
+    }
+    std::cout << "=====================================" << std::endl;
+  }
 
 private:
   GLuint VAO;
