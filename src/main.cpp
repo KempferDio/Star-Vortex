@@ -24,7 +24,7 @@ int main()
         glm::vec2 size(300.0f, 200.0f);
         glm::vec3 color(1.0f, 0.5f, 0.5f);
 
-        Render->Draw(Core::ResourceManager::GetTexture("Texture"),
+        Render->Draw("Texture",
                      "Shader",
                      position, size, 0.0f, color);
 

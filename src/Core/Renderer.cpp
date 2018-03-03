@@ -34,7 +34,7 @@ GLFWwindow *Renderer::GetWindow()
 }
 
 //
-void Renderer::Draw(Texture &texture, const char *shaderName, glm::vec2 position,
+void Renderer::Draw(const char *textureName, const char *shaderName, glm::vec2 position,
                     glm::vec2 size,
                     GLfloat rotate, glm::vec3 color)
 {
@@ -53,7 +53,7 @@ void Renderer::Draw(Texture &texture, const char *shaderName, glm::vec2 position
     Core::ResourceManager::GetShader(shaderName).setVec3f("spriteColor", color);
 
     glActiveTexture(GL_TEXTURE0);
-    texture.Bind();
+    Core::ResourceManager::GetTexture(textureName).Bind();
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
