@@ -1,4 +1,4 @@
-#include <Core/Common/Shader.h>
+#include <Core/Shader.h>
 
 using namespace Core;
 

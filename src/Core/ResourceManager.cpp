@@ -1,4 +1,4 @@
-#include <Core/Engine/ResourceManager.h>
+#include <Core/ResourceManager.h>
 
 using namespace Core;
 
@@ -17,18 +17,19 @@ void ResourceManager::LoadTexture(const char *path, std::string name)
 {
     /*Texture texture = loadTextureFromFile(path);
     Textures[name] = texture;*/
+    Texture texture = loadTextureFromFile(path);
 
-    Textures.insert(std::map<std::string, Texture>::value_type(name, Texture()));
+    Textures.insert(std::map<std::string, Texture>::value_type(name, texture));
 }
 
-Shader ResourceManager::GetShader(const char *name)
+Shader& ResourceManager::GetShader(const char *name)
 {
-    return Shaders[name];
+    return Shaders.at(name);
 }
 
-Texture ResourceManager::GetTexture(const char *name)
+Texture& ResourceManager::GetTexture(const char *name)
 {
-    return Textures[name];
+    return Textures.at(name);
 }
 //Returns string object
 std::string ResourceManager::loadShaderFile(const char *path)
@@ -58,21 +59,24 @@ std::string ResourceManager::loadShaderFile(const char *path)
     return shaderCode;
 }
 
-//Later
+
 Texture ResourceManager::loadTextureFromFile(const char *path)
 {
 
     Texture texture;
     //Alpha format here
-    int width, height;
-    unsigned char *image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGB);
+    int width, height, nrChannels;
+    unsigned char *image = stbi_load(path, &width, &height, &nrChannels, 0);
     if (image)
     {
         //Generate texture
         texture.Generate(image, width, height);
     }
+    else {
+        Logger::Log("Texture wasn't load", "loadTextureFromFile");
+    }
     //Free data
-    SOIL_free_image_data(image);
+    stbi_image_free(image);
     return texture;
 }
 

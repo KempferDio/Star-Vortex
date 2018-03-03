@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <Core/Common/Texture.h>
-#include <Core/Common/Shader.h>
-#include <Core/Engine/GameWindow.h>
+#include <Core/Texture.h>
+#include <Core/Shader.h>
+#include <Core/GameWindow.h>
 
 namespace Core
 {

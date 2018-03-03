@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <Core/Engine/Logger.h>
+#include <Core/Logger.h>
 #include <iostream>
 
 #define SHADER_BUFFER_SIZE 512
