@@ -2,7 +2,7 @@ CC = g++
 SRC = src
 HEADER = include
 TARGET = Star-Vortex
-LIB = lib
+LIB = /usr/lib
 OBJ = obj
 DEBUG = bin/debug
 #RELEASE
@@ -15,13 +15,13 @@ SOURCES = $(wildcard $(SRC)/*.cpp) \
 OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES)) 
 
 CFLAGS = -c -Wall
-LFLAGS = -L$(LIB) -lglfw3 -lopengl32 -lgdi32 -g -D DEBUG
+LFLAGS = -L$(LIB) -lglfw -lGL -g -DDEBUG -ldl
 
 all: $(TARGET)
 
 
 $(TARGET): $(OBJS)
-	$(CC) $(LFLAGS) -I$(HEADER) $^ -o $(DEBUG)/$(TARGET)
+	$(CC)  -I$(HEADER) $^ $(LFLAGS) -o $(DEBUG)/$(TARGET)
 
 $(OBJ): $(OBJS)
 
@@ -37,8 +37,8 @@ $(OBJ)/%.o: $(SRC)/Core/%.cpp
 $(OBJ)/%.o: $(SRC)/Core/%.cpp
 	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
 
-clean:
-	del /S *.o
+clear:
+	find . -name "*.o" -type f -delete
 
 
 .PHONY: all clean 

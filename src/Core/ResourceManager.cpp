@@ -83,7 +83,7 @@ Texture ResourceManager::loadTextureFromFile(const char *path)
 
 void ResourceManager::FreeResources()
 {
-    for (auto shader : Shaders)
+   /* for (auto shader : Shaders)
     {
         glDeleteProgram(shader.second.Id);
     }
@@ -91,5 +91,13 @@ void ResourceManager::FreeResources()
     for (auto texture : Textures)
     {
         glDeleteTextures(1, &texture.second.Id);
+    }*/
+
+    for(std::map<std::string, Shader>::iterator it = Shaders.begin(); it != Shaders.end(); it++) {
+        glDeleteProgram(it->second.Id);
+    }
+
+    for(std::map<std::string, Texture>::iterator it = Textures.begin(); it != Textures.end(); it++) {
+        glDeleteTextures(1, &it->second.Id);
     }
 }
