@@ -6,7 +6,6 @@ bool Core::Logger::isLogFileCreated = false;
 
 int Logger::Log(const std::string &msg, const char *module)
 {
-#ifdef DEBUG
     std::ofstream logFile;
     //I'm tired delete log file every time
     if (isLogFileCreated == false)
@@ -31,6 +30,5 @@ int Logger::Log(const std::string &msg, const char *module)
             << "Module - " << module << "\n";
     logFile << "===============================================\n";
     logFile.close();
-#endif //DEBUG
     return 0;
 }

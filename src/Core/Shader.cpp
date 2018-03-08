@@ -39,6 +39,10 @@ Shader::Shader(std::string vertexCode, std::string fragmentCode)
 void Shader::Use()
 {
     glUseProgram(Id);
+    
+#ifdef DEBUG
+    Logger::Log("Shader was used", "Shader::Use()");
+#endif
 }
 
 void Shader::checkCompileErrors(GLuint shader)
@@ -92,7 +96,7 @@ void Shader::setVec3f(const char *name, float value1, float value2, float value3
     glUniform3f(glGetUniformLocation(Id, name), value1, value2, value3);
 }
 
-void Shader::setMatrix4(const char *name, glm::mat4 mat) const
+void Shader::setMatrix4(const char *name, const glm::mat4 mat) const
 {
     glUniformMatrix4fv(glGetUniformLocation(Id, name), 1, GL_FALSE, glm::value_ptr(mat));
 }

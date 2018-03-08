@@ -56,7 +56,12 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "xmemory": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "array": "cpp",
+        "*.tcc": "cpp",
+        "cctype": "cpp",
+        "clocale": "cpp",
+        "cwctype": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

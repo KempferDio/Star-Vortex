@@ -1,6 +1,6 @@
 CC = g++
 SRC = src
-HEADER = include
+HEADER = include -Iusr/local/include
 TARGET = Star-Vortex
 LIB = /usr/lib
 OBJ = obj

@@ -24,6 +24,7 @@ void ResourceManager::LoadTexture(const char *path, std::string name)
 
 Shader &ResourceManager::GetShader(const char *name)
 {
+    
     return Shaders.at(name);
 }
 
