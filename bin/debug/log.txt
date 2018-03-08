@@ -1,10 +1,2 @@
-===============================================
-Thu Mar  8 13:07:27 2018
-Message - Texture was loaded and created
-Module - loadTextureFromFile
-===============================================
-===============================================
-Thu Mar  8 13:07:35 2018
-Message - Renderer is dead
-Module - ~Renderer
-===============================================
+0.13 :: DEBUG MOD ACTIVATED :: main
+131.06 :: Texture was loaded and created :: loadTextureFromFile

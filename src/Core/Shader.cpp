@@ -39,10 +39,6 @@ Shader::Shader(std::string vertexCode, std::string fragmentCode)
 void Shader::Use()
 {
     glUseProgram(Id);
-    
-#ifdef DEBUG
-    Logger::Log("Shader was used", "Shader::Use()");
-#endif
 }
 
 void Shader::checkCompileErrors(GLuint shader)

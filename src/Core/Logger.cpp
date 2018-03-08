@@ -23,12 +23,8 @@ int Logger::Log(const std::string &msg, const char *module)
         printf("ERROR::LOG_FILE_CAN_NOT_OPEN/CREATE");
         return 1;
     }
-    time_t now = time(0);
-    char *dt = ctime(&now);
-    logFile << "===============================================\n";
-    logFile << dt << "Message - " << msg << "\n"
-            << "Module - " << module << "\n";
-    logFile << "===============================================\n";
+    
+    logFile << (clock() - startTime) / CLOCKS_PER_MS  << " :: " << msg << " :: " << module << "\n";
     logFile.close();
     return 0;
 }

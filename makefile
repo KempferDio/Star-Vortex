@@ -14,8 +14,8 @@ SOURCES = $(wildcard $(SRC)/*.cpp) \
 
 OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SOURCES)) 
 
-CFLAGS = -c -Wall
-LFLAGS = -L$(LIB) -lglfw -lGL -g -DDEBUG -ldl
+CFLAGS = -c -Wall -DDEBUG 
+LFLAGS = -L$(LIB) -lglfw -lGL -g -ldl 
 
 all: $(TARGET)
 
@@ -35,6 +35,12 @@ $(OBJ)/%.o: $(SRC)/Core/%.cpp
 	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
 
 $(OBJ)/%.o: $(SRC)/Core/%.cpp
+	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
+
+$(OBJ)/%.o: $(SRC)/Core/Game/%.cpp
+	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
+
+$(OBJ)/%.o: $(SRC)/Core/Game/%.c
 	$(CC) $(CFLAGS) -I$(HEADER) $< -o $@
 
 clear:

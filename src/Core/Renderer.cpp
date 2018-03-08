@@ -24,6 +24,8 @@ Renderer::Renderer(unsigned int width, unsigned int height, const char *title)
         exit(-1);
     }
     glfwMakeContextCurrent(GetWindow());
+
+    camera = new Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 }
 
 Renderer::~Renderer()
@@ -31,6 +33,7 @@ Renderer::~Renderer()
     glDeleteVertexArrays(1, &VAO);
     glfwDestroyWindow(GetWindow());
     glfwTerminate();
+    delete camera;
 }
 
 GLFWwindow *Renderer::GetWindow()
@@ -43,20 +46,21 @@ void Renderer::Draw(const char *textureName, const char *shaderName, glm::vec3 p
                     glm::vec2 size,
                     GLfloat rotate, glm::vec3 color)
 {
-    Core::ResourceManager::GetShader(shaderName).Use();
+     Core::ResourceManager::GetShader(shaderName).Use();
+    //Set projection matrix
+    projectionMatrix = glm::ortho(0.0f, (float)Window.Width, 0.0f, (float)Window.Height, 0.0f, 10.0f);
+    viewMatrix = camera->getViewMatrix();
+   
+
+    //This will be in Component of Entity - "Drawable"
     glm::mat4 model = glm::mat4(1.0f);
-
     model = glm::translate(model, position);
-    /*model = glm::scale(model, glm::vec3(size, 0.0f));
-    model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f));*/
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f)); 
-    model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f)); 
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
     model = glm::scale(model, glm::vec3(size, 1.0f));
+    model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f));
 
     Core::ResourceManager::GetShader(shaderName).setMatrix4("model", model);
+    Core::ResourceManager::GetShader(shaderName).setMatrix4("view", viewMatrix);
+    Core::ResourceManager::GetShader(shaderName).setMatrix4("projection", projectionMatrix);
     Core::ResourceManager::GetShader(shaderName).setVec3f("spriteColor", color);
 
     glActiveTexture(GL_TEXTURE0);
@@ -113,7 +117,6 @@ void Renderer::ClearScreen()
 void Renderer::TerminateRenderer()
 {
     glDeleteVertexArrays(1, &VAO);
-    Logger::Log("Renderer is dead", "~Renderer");
     glfwDestroyWindow(GetWindow());
     glfwTerminate();
 }

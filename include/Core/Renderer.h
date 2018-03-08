@@ -9,6 +9,7 @@
 #include <Core/Shader.h>
 #include <Core/GameWindow.h>
 #include <Core/ResourceManager.h>
+#include <Core/Camera.h>
 
 namespace Core
 {
@@ -25,9 +26,14 @@ public:
   void TerminateRenderer();
   GLFWwindow *GetWindow();
   GameWindow Window;
-
+  Camera* camera;
+  
 private:
   GLuint VAO;
+  //Main view and projection matrix
+  //Test
+  glm::mat4 viewMatrix;
+  glm::mat4 projectionMatrix;
 };
 }
 
